@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associação Gentes da Banda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #667eea;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .form-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: white;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .benefit-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .members-list {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .member-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .tab-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .tab-button.active,
+        .tab-button:hover {
+            background: white;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">Gentes da Banda</a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#beneficios">Benefícios</a></li>
+                <li><a href="#inscricao">Inscrição</a></li>
+                <li><a href="#regimento">Regimento</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container">
+                <h1>Associação Gentes da Banda</h1>
+                <p>Unidos pela solidariedade, fortalecidos pela comunidade. Apoio mútuo em momentos de necessidade.</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <section id="sobre" class="section">
+                <h2>Nossa Missão</h2>
+                <p>A Associação Gentes da Banda tem por finalidade promover o auxílio mútuo entre seus membros em casos de aflição, doença grave ou morte, visando a solidariedade e o bem-estar da comunidade.</p>
+                
+                <h3>Objetivos</h3>
+                <p>Nosso projeto visa estabelecer uma associação comunitária dedicada a apoiar seus membros em tempos difíceis, como doenças graves ou falecimento de familiares diretos. A motivação surgiu de experiências recentes onde a comunidade se mobilizou para ajudar em situações de emergência.</p>
+
+                <h3>Natureza da Associação</h3>
+                <p>Somos uma pessoa jurídica de direito privado, sem finalidades econômicas e com fins de solidariedade, focando exclusivamente em situações de morte ou doença grave comprovada de membros ou familiares diretos.</p>
+            </section>
+
+            <section id="beneficios" class="section">
+                <h2>Benefícios e Futuras Expansões</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h3>🏥 Assistência Médica</h3>
+                        <p>Apoio financeiro em casos de doenças graves dos membros ou familiares diretos.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>💝 Auxílio Funeral</h3>
+                        <p>Suporte financeiro para despesas funerárias de membros ou familiares diretos.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>🛒 Cestas Básicas</h3>
+                        <p>Fornecimento de cestas básicas em situações de necessidade alimentar (futura expansão).</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>📚 Programas Educacionais</h3>
+                        <p>Cursos e workshops para desenvolvimento pessoal e profissional (futura expansão).</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>🤝 Eventos de Integração</h3>
+                        <p>Atividades que fortalecem os laços entre membros e comunidade (futura expansão).</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>🏘 Apoio Comunitário</h3>
+                        <p>Projetos para desenvolvimento do bairro e promoção da solidariedade (futura expansão).</p>
+                    </div>
+                </div>
+
+                <h3>Informações Importantes</h3>
+                <ul style="margin: 1rem 0; padding-left: 2rem;">
+                    <li>Contribuição anual: 1.200 meticais</li>
+                    <li>Pagamento pode ser dividido em parcelas mensais ou trimestrais</li>
+                    <li>Ano fiscal: 1º de janeiro a 31 de dezembro</li>
+                    <li>Beneficiários diretos: membro, pais, esposa e filhos</li>
+                    <li>Membros devem estar ativos (100% das contribuições pagas)</li>
+                </ul>
+            </section>
+
+            <section id="inscricao" class="section">
+                <h2>Inscrição de Membros</h2>
+                
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="showTab('form')">Formulário de Inscrição</button>
+                    <button class="tab-button" onclick="showTab('members')">Membros Inscritos</button>
+                </div>
+
+                <div id="form-tab" class="form-container">
+                    <h3>Formulário de Inscrição</h3>
+                    <p style="margin-bottom: 2rem;">Preencha todos os campos para se tornar membro da Associação Gentes da Banda.</p>
+                    
+                    <div class="success-message" id="successMessage">
+                        ✅ Inscrição realizada com sucesso! Bem-vindo(a) à Associação Gentes da Banda!
+                    </div>
+
+                    <form id="inscricaoForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo *</label>
+                                <input type="text" id="nome" name="nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefone">Telefone *</label>
+                                <input type="tel" id="telefone" name="telefone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dataNascimento">Data de Nascimento *</label>
+                                <input type="date" id="dataNascimento" name="dataNascimento" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endereco">Endereço Completo *</label>
+                            <textarea id="endereco" name="endereco" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profissao">Profissão</label>
+                                <input type="text" id="profissao" name="profissao">
+                            </div>
+                            <div class="form-group">
+                                <label for="estadoCivil">Estado Civil</label>
+                                <select id="estadoCivil" name="estadoCivil">
+                                    <option value="">Selecione</option>
+                                    <option value="solteiro">Solteiro(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                    <option value="divorciado">Divorciado(a)</option>
+                                    <option value="viuvo">Viúvo(a)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contatoEmergencia">Contato de Emergência (Nome e Telefone) *</label>
+                            <input type="text" id="contatoEmergencia" name="contatoEmergencia" placeholder="Ex: João Silva - 84 123 456 789" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="modalidadePagamento">Modalidade de Pagamento *</label>
+                            <select id="modalidadePagamento" name="modalidadePagamento" required>
+                                <option value="">Selecione</option>
+                                <option value="anual">Pagamento Anual (1.200 MT)</option>
+                                <option value="trimestral">Pagamento Trimestral (300 MT x 4)</option>
+                                <option value="mensal">Pagamento Mensal (100 MT x 12)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="concordo" name="concordo" required style="width: auto; margin-right: 10px;">
+                                Concordo com os objetivos e regimento interno da Associação Gentes da Banda *
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn">Realizar Inscrição</button>
+                    </form>
+                </div>
+
+                <div id="members-tab" class="form-container hidden">
+                    <h3>Membros Inscritos</h3>
+                    <p style="margin-bottom: 1rem;">Lista de membros ativos da associação:</p>
+                    <div class="members-list" id="membersList">
+                        <p style="text-align: center; opacity: 0.7;">Nenhum membro inscrito ainda.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="regimento" class="section">
+                <h2>Regimento Interno</h2>
+                
+                <h3>Capítulo I: Disposições Gerais</h3>
+                <p><strong>Artigo 1º - Denominação e Finalidade:</strong> A Associação Gentes da Banda tem por finalidade promover o auxílio mútuo entre seus membros em casos de aflição, doença grave ou morte, visando a solidariedade e o bem-estar da comunidade.</p>
+
+                <h3>Capítulo II: Dos Membros</h3>
+                <p><strong>Artigo 3º - Admissão de Membros:</strong> Poderão se tornar membros da Associação todas as pessoas que concordem com os objetivos e o regimento interno. A admissão será feita mediante solicitação formal, preenchimento de ficha de inscrição e aprovação da diretoria.</p>
+
+                <p><strong>Artigo 4º - Contribuições:</strong> Os membros deverão contribuir anualmente com um valor total de 1.200 meticais, podendo escolher entre pagar o valor total de uma vez ou dividir em parcelas mensais ou trimestrais.</p>
+
+                <p><strong>Artigo 5º - Ano Fiscal:</strong> O ano fiscal inicia-se em 1º de janeiro e termina em 31 de dezembro. As contribuições feitas para um determinado ano serão utilizadas no ano seguinte.</p>
+
+                <h3>Capítulo III: Da Administração</h3>
+                <p><strong>Artigo 9º - Estrutura Administrativa:</strong> A Associação será administrada por uma diretoria composta por Presidente, Vice-Presidente, Secretário, Tesoureiro, Conselho Fiscal e demais membros conforme estatuto.</p>
+
+                <h3>Capítulo IV: Das Assembleias</h3>
+                <p><strong>Artigo 11º - Tipos de Assembleias:</strong> As assembleias podem ser ordinárias (anuais) ou extraordinárias (situações urgentes).</p>
+
+                <p style="margin-top: 2rem;"><em>Para consultar o regimento completo, entre em contato com a diretoria da associação.</em></p>
+            </section>
+
+            <section id="contato" class="contact-info">
+                <h2>Contato</h2>
+                <p><strong>Email:</strong> associacaogentesdabanda@outlook.com</p>
+                <p><strong>Endereço:</strong> [Endereço completo será atualizado]</p>
+                <p style="margin-top: 1rem;">Para mais informações ou esclarecimentos sobre a associação, entre em contato através do email oficial.</p>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Sistema de armazenamento de membros (funciona localmente)
+        let membros = JSON.parse(localStorage
